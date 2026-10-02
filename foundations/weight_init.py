@@ -51,11 +51,9 @@ class Solution:
         x = torch.randn(input_dim)
         
         # Apply the nonlinear transformation
-        for i in range(num_layers):
-            W = weights[i]
-            linear = W @ x
-            nonlinear = torch.maximum(linear, torch.tensor(0))
-            std.append(torch.std(nonlinear).item())
-            x, fan_in, fan_out = nonlinear, fan_out, hidden_dim
+        for W in weights:
+            x = W @ x
+            x = torch.relu(x)
+            std.append(round(x.std().item(), 2))
 
         return [round(sigma, 2) for sigma in std]
