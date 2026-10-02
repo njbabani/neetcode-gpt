@@ -56,4 +56,4 @@ class Solution:
             x = torch.relu(x)
             std.append(round(x.std().item(), 2))
 
-        return [round(sigma, 2) for sigma in std]
+        return std
